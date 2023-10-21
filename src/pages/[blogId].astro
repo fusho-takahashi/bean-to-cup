@@ -38,7 +38,6 @@ const blog = await getBlogDetail(blogId as string);
   main {
     width: 960px;
     margin-inline: auto;
-    padding: 16px 0;
     display: flex;
     flex-direction: column;
     gap: 48px;
@@ -71,6 +70,10 @@ const blog = await getBlogDetail(blogId as string);
     object-fit: cover;
   }
 
+  .post {
+    padding: 0 32px;
+  }
+
   .back {
     display: grid;
     place-items: center;
@@ -80,5 +83,23 @@ const blog = await getBlogDetail(blogId as string);
     font-size: 20px;
     font-weight: bold;
     margin-inline: auto;
+  }
+
+  @media screen and (max-width: 960px) {
+    main {
+      width: 100%;
+    }
+
+    article {
+      grid-template-rows: 240px auto;
+    }
+
+    .overlay {
+      right: 16px;
+    }
+
+    .post {
+      padding: 0 16px;
+    }
   }
 </style>
