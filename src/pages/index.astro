@@ -1,19 +1,56 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import { getBlogs } from "../libs/microcms";
-const response = await getBlogs({ fields: ["id", "title"] });
+import { Blog, getBlogs } from "../libs/microcms";
+const response = await getBlogs({ fields: ["id", "title", "eyecatch"] });
 ---
 
 <Layout title="TOP">
   <main>
-    <ul>
+    <section class="article-list">
       {
-        response.contents.map((content: any) => (
-          <li>
-            <a href={content.id}>{content.title}</a>
-          </li>
+        response.contents.map((content: Blog) => (
+          <div class="article-list-item">
+            <a href={content.id}>
+              <img src={content.eyecatch.url} />
+              <h3>{content.title}</h3>
+            </a>
+          </div>
         ))
       }
-    </ul>
+    </section>
   </main>
 </Layout>
+
+<style>
+  main {
+    width: 960px;
+    margin-inline: auto;
+    padding: 16px 0;
+  }
+
+  .article-list {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .article-list-item {
+    box-sizing: border-box;
+    width: 320px;
+    padding: 16px;
+    cursor: pointer;
+  }
+
+  .article-list-item:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+  }
+
+  .article-list-item img {
+    width: 100%;
+  }
+
+  a {
+    background-color: transparent;
+    text-decoration: none;
+    color: inherit;
+  }
+</style>
